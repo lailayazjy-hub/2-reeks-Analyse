@@ -9,16 +9,20 @@ import { nl, enUS } from 'date-fns/locale';
 import { AppConfig, THEMES, Language } from './types';
 import { MatchingModule } from './components/MatchingModule';
 
-// Minimalist Abstract Bird/Logo
+// Placeholder URL voor de specht foto. 
+// TIP: Vervang deze URL door een lokaal pad (bijv. "/logo.png") als je de specifieke foto hebt.
+const WOODPECKER_URL = "https://images.unsplash.com/photo-1543539748-a4bf17a68a8c?q=80&w=400&auto=format&fit=crop";
+
+// Woodpecker Logo Component
+// Uses grayscale and contrast filters to ensure it remains neutral and subtle across themes.
 const CompanyLogo = ({ className = "", style = {} }: { className?: string, style?: React.CSSProperties }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} style={style}>
-    <path d="M16 7h.01" />
-    <path d="M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20" />
-    <path d="m20 7 2 .5-2 .5" />
-    <path d="M10 18v3" />
-    <path d="M14 17.75V21" />
-    <path d="M7 18a6 6 0 0 0 3.84-10.61" />
-  </svg>
+  <div className={`${className} flex items-center justify-center overflow-hidden rounded-full bg-slate-50`} style={style}>
+    <img 
+        src={WOODPECKER_URL} 
+        alt="Specht Logo" 
+        className="w-full h-full object-cover grayscale contrast-[0.8] opacity-90"
+    />
+  </div>
 );
 
 export default function App() {
@@ -50,7 +54,8 @@ export default function App() {
       
       {/* Background Watermark */}
       <div className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center overflow-hidden">
-        <CompanyLogo className="text-slate-200 opacity-[0.05] w-[800px] h-[800px]" />
+        {/* Max 5% opacity for background watermark */}
+        <CompanyLogo className="opacity-[0.05] w-[600px] h-[600px] grayscale" />
       </div>
 
       {/* Header */}
@@ -59,7 +64,8 @@ export default function App() {
             <div className="h-16 flex items-center justify-between">
                 <div className="flex items-center gap-4">
                     <div className="flex items-center gap-3">
-                    <CompanyLogo className="w-6 h-6 text-slate-400" />
+                    {/* Small logo in header */}
+                    <CompanyLogo className="w-8 h-8 border border-slate-100 shadow-sm" />
                     <div className="w-px h-6 bg-slate-200"></div>
                     <div className="p-2 rounded-lg text-white shadow-md transition-colors duration-300" style={{ backgroundColor: currentTheme.colors.primary }}>
                         <TrendingUp size={20} strokeWidth={2.5} />
@@ -160,7 +166,7 @@ export default function App() {
       
       {/* Footer */}
       <footer className="py-6 mt-12 border-t border-slate-200 flex flex-col items-center justify-center text-slate-400 gap-2 relative z-10">
-          <CompanyLogo className="w-6 h-6 opacity-30" />
+          <CompanyLogo className="w-6 h-6 opacity-30 grayscale" />
           <span className="text-xs font-medium tracking-wide opacity-60">Secure Data Environment</span>
       </footer>
     </div>
